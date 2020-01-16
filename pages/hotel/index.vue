@@ -1,5 +1,5 @@
 <template>
-  <div>shouye</div>
+  <div></div>
 </template>
 
 <script>
