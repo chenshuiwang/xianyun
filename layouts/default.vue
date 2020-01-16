@@ -36,4 +36,7 @@ a:hover {
 .banner{
   width: 700px;
 }
+em,i{
+  font-style: normal;
+}
 </style>

@@ -3,7 +3,7 @@
     <!-- 轮播图 -->
     <el-carousel class="carousel" height="700px">
       <el-carousel-item v-for="(item,index) in banners" :key="index">
-        <div class="banner" :style="`background:url(${item}) center center no-repeat`"></div>
+        <div class="banner" :style="`background:url(${$axios.defaults.baseURL + item.url}) center center no-repeat`"></div>
       </el-carousel-item>
     </el-carousel>
 
@@ -11,7 +11,7 @@
     <div class="banner-content">
       <div class="search-bar">
         <el-row type="flex" class="search-tab">
-          <span v-for='(item,index) in options' :key="index" @click="handleClick(index)">{{item.text}}</span>
+          <span v-for='(item,index) in options' :key="index" @click="handleClick(index)" :class="{active: current === index}"><i>{{item.text}}</i></span>
         </el-row>
         <el-row type="flex" align="middle" class="search-input">
           <input type="text" :placeholder="options[current].placeholder">
@@ -48,6 +48,14 @@ export default {
     handleClick(index){
       this.current = index;
     }
+  },
+  mounted(){
+    this.$axios({
+      url:'/scenics/banners'
+    }).then(res => {
+      const {data} = res.data;
+      this.banners = data;
+    })
   }
 };
 </script>
@@ -75,6 +83,7 @@ export default {
   }
   .search-tab{
       .active{
+          //color: #fff;
           i{
           color:#333;
           }
@@ -83,6 +92,7 @@ export default {
           }
       }
       span{
+          //color: #fff;
           width:82px;
           height:36px;
           display:block;
